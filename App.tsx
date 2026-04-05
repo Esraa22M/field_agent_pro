@@ -17,26 +17,35 @@ export default function App() {
   const [syncing, setSyncing] = useState(true);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    if (migrationsFinished) {
-      const syncData = async () => {
-        try {
-          const result = await ShipmentsRepo.syncFromRemote();
+useEffect(() => {
+  let isMounted = true;
+
+  if (migrationsFinished) {
+    const syncData = async () => {
+      try {
+await new Promise(resolve => setTimeout(() => resolve(null), 500));
+        
+        const result = await ShipmentsRepo.syncFromRemote();
+        
+        if (isMounted) {
           if (result.success) {
             setMessage('Sync completed successfully!');
           } else {
             setMessage('Sync failed: ' + result.error);
           }
-        } catch (err) {
-          setMessage('Unexpected error: ' + err);
-        } finally {
-          setSyncing(false);
         }
-      };
+      } catch (err) {
+        console.error("Sync Error:", err);
+      } finally {
+        if (isMounted) setSyncing(false);
+      }
+    };
 
-      syncData();
-    }
-  }, [migrationsFinished]);
+    syncData();
+  }
+
+  return () => { isMounted = false; };
+}, [migrationsFinished]);
 
   if (migrationError) {
     return (
@@ -68,7 +77,9 @@ export default function App() {
                 <Text style={{ color: 'white', textAlign: 'center' }}>{message}</Text>
               </View>
             )}
-          </NavigationContainer></ThemeProvider> </SafeAreaProvider>
+          </NavigationContainer>
+      </ThemeProvider> 
+      </SafeAreaProvider>
     </Provider>
   );
 }

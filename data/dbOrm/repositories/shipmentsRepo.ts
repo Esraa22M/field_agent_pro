@@ -2,6 +2,7 @@ import shipmentsService from '../../api/mock/shipmentsService';
 import { ShipmentMapper } from '../mappers/shipmentsMapper';
 import { ShipmentQueries } from '../queries/shipmentsQueries';
 import { toSQLiteDate } from '../../utils/date.utils';
+
 export const ShipmentsRepo = {
   syncFromRemote: async (): Promise<{ success: boolean; error?: unknown }> => {
     try {
@@ -11,7 +12,6 @@ export const ShipmentsRepo = {
         console.log('Table does not exist (migration issue)');
         return { success: false };
       }
-
       const hasData = await ShipmentQueries.hasData();
 
       if (hasData) {
@@ -34,6 +34,7 @@ export const ShipmentsRepo = {
   },
 
   getAllLocal: async () => {
+    
     return await ShipmentQueries.getActiveShipments();
   },
 

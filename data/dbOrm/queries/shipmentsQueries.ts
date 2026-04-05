@@ -13,6 +13,8 @@ export const ShipmentQueries = {
   },
 
   getActiveShipments: async (): Promise<ShipmentSelect[]> => {
+ await db.update(shipments)
+            .set({ is_deleted: 0 }); 
     return await db
       .select()
       .from(shipments)

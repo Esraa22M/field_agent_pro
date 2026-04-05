@@ -22,7 +22,7 @@ export const lightColors = {
     success: '#3FB950',
     successBg: '#12261E',
     primaryWithOpacity: 'rgba(47, 129, 247, 0.2)',
-    error: '#F85149',
+    error: '#ed1509',
     warning: '#D29922',
     hint: '#f1f1f7',
     closeBadge:"#f1f1f7",

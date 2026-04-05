@@ -61,7 +61,6 @@ const createStyles = (theme: any) =>
         item: {
             padding: theme.spacing.medium || 16,
             backgroundColor: theme.colors.card || '#1C1C1E',
-            marginBottom: theme.spacing.cardGap || 12,
             borderRadius: theme.spacing.borderRadius.large || 12,
             flexDirection: 'row',
             alignItems: 'center',
@@ -72,7 +71,8 @@ const createStyles = (theme: any) =>
             shadowRadius: 2,
             elevation: 1,
         },
-        mainContent: { flex: 1 },
+        mainContent: { flex: 1,           
+ },
         headerRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',

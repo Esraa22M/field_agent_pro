@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { ShipmentsRepo } from '../../../data/dbOrm/repositories/shipmentsRepo';
 import { Shipment } from '../../types/flatShipmentsTyes';
-
+import { RootState } from '../index'; 
 interface ShipmentsState {
   list: Shipment[];
   loading: boolean;
@@ -13,6 +13,7 @@ const initialState: ShipmentsState = {
   loading: false,
   error: null,
 };
+
 
 export const loadShipments = createAsyncThunk<Shipment[], void, { rejectValue: string }>(
   'shipments/load',
@@ -56,6 +57,7 @@ export const softDeleteShipment = createAsyncThunk<
   }
 );
 
+
 export const shipmentsSlice = createSlice({
   name: 'shipments',
   initialState,
@@ -74,16 +76,22 @@ export const shipmentsSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-
       .addCase(softDeleteShipment.fulfilled, (state, action) => {
         const id = action.payload;
-
         const item = state.list.find(i => i.order_id === id);
         if (item) {
-          item.is_deleted = true;
+          item.is_deleted = true; 
         }
       });
   },
 });
+
+
+const selectRawShipments = (state: RootState) => state.shipments.list;
+
+export const selectActiveShipments = createSelector(
+  [selectRawShipments],
+  (list) => list.filter(item => !item.is_deleted)
+);
 
 export default shipmentsSlice.reducer;
