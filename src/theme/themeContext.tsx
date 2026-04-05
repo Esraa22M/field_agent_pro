@@ -1,9 +1,8 @@
 import React, { createContext, useState, useEffect, useMemo, useContext } from 'react';
 import { Appearance } from 'react-native';
-import { fonts, spacing, lightColors, darkColors } from './index';
-
+import { fonts, spacing, colors } from './index'; 
 const initialState = {
-  theme: { colors: darkColors, fonts, spacing },
+  theme: { colors: {...colors.dark, ...colors.status}, fonts, spacing },
   toggleTheme: () => {},
 };
 
@@ -12,25 +11,21 @@ export const ThemeContext = createContext(initialState);
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const colorScheme = Appearance.getColorScheme();
 
-  const [theme, setTheme] = useState({
-    colors: colorScheme === 'dark' ? darkColors : lightColors,
+  const [isDark, setIsDark] = useState(colorScheme === 'dark');
+
+  const theme = useMemo(() => ({
+    colors: isDark ? {...colors.dark, ...colors.status} : {...colors.light, ...colors.status},
     fonts,
     spacing,
-  });
+  }), [isDark]);
 
   const toggleTheme = () => {
-    setTheme(prev => ({
-      ...prev,
-      colors: prev.colors === lightColors ? darkColors : lightColors,
-    }));
+    setIsDark(prev => !prev);
   };
 
   useEffect(() => {
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-      setTheme(prev => ({
-        ...prev,
-        colors: colorScheme === 'dark' ? darkColors : lightColors,
-      }));
+      setIsDark(colorScheme === 'dark');
     });
 
     return () => subscription.remove();

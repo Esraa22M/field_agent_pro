@@ -15,7 +15,6 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { softDeleteShipment } from '../../store/slices/shipmentsSlice';
 import { useTheme } from '../../theme/themeContext';
-
 export default function SwipeableAssignmentItem({ item }: any) {
   const translateX = useSharedValue(0);
   const maxSwipe = -100;
@@ -104,7 +103,7 @@ const createStyles = (theme: any) =>
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      paddingRight: 25, 
+      paddingRight: theme.spacing.large || 25, 
       zIndex: -1      
     },
     iconContainer: {
@@ -113,9 +112,9 @@ const createStyles = (theme: any) =>
     },
     deleteText: {
       color: 'white',
-      fontSize: 10,
+      fontSize: theme.fonts.size.small || 14,
       fontWeight: '900',
-      marginTop: 4,
+      marginTop: theme.spacing.xs || 4,
       letterSpacing: 0.5,
     },
   });

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Shipment } from '../../types/flatShipmentsTyes';
 import { useTheme } from '../../theme/themeContext';
 import { AssignmentsStackParamList } from '../../navigation/AssignmentsStack';
-
+import { withOpacity } from '../../utils/utils';
 interface AssignmentItemProps {
     item: Shipment;
 }
@@ -17,7 +17,7 @@ type AssignmentItemNavigationProp = StackNavigationProp<
 >;
 export default function AssignmentItem({ item }: AssignmentItemProps) {
     const { theme } = useTheme();
-    const styles = createStyles(theme);
+    const styles = createStyles(theme, item.status);
     const secondaryColor = theme.colors.textSecondary || '#8E8E93';
 
     const navigation = useNavigation<AssignmentItemNavigationProp>();
@@ -56,7 +56,7 @@ export default function AssignmentItem({ item }: AssignmentItemProps) {
     );
 }
 
-const createStyles = (theme: any) =>
+const createStyles = (theme: any, status: string|null) =>
     StyleSheet.create({
         item: {
             padding: theme.spacing.medium || 16,
@@ -85,14 +85,14 @@ const createStyles = (theme: any) =>
             color: theme.colors.textPrimary || '#FFFFFF',
         },
         badge: {
-            backgroundColor: 'rgba(52, 199, 89, 0.15)',
+            backgroundColor:  withOpacity(theme.colors[status || 'Active'] || '#34C759', 0.4) || '#E5F9E7',
             paddingVertical: theme.spacing.xs || 4,
             paddingHorizontal: theme.spacing.small || 8,
             borderRadius: theme.spacing.borderRadius.medium || 6,
             marginRight: theme.spacing.medium || 16,
         },
         badgeText: {
-            color: theme.colors.success || '#34C759',
+            color: theme.colors[status || 'Active'] || '#34C759',
             fontSize: 11,
             fontWeight: 'bold',
             textTransform: 'uppercase',
