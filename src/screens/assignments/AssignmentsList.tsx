@@ -12,7 +12,8 @@ import { ActivityIndicator } from 'react-native';
 import { useOrientation } from '../../hooks/useOrientation';
 export default function AssignmentsList({ navigation }: { navigation: NavigationProp<any> }) {
   const dispatch = useDispatch<AppDispatch>();
-  const { list: shipments, loading, error } = useSelector((state: RootState) => state.shipments);
+  const { list, loading, error } = useSelector((state: RootState) => state.shipments);
+  const shipments = list.filter(item => !item.is_deleted);
   console.log('Shipments:', loading);
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
@@ -63,7 +64,7 @@ const createStyles = (theme: any, insets: any) =>
     },
     itemWrapper: {
       flex: 1,
-      marginBottom: 12, 
+      marginBottom: 12,
     },
     listContent: {
       paddingHorizontal: theme.spacing.medium || 16,

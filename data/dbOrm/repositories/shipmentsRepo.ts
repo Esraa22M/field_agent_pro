@@ -49,6 +49,9 @@ export const ShipmentsRepo = {
   getTaskById: async (taskId: number) => {
     return await ShipmentQueries.getTaskById(taskId);
   },
+  softDeleteRow: async (orderId: number) => {
+    return await ShipmentQueries.softDelete(orderId);
+  },
   markAsDeleted: async (orderId: number) => {
     return await ShipmentQueries.updateStatus(orderId, 'Completed');
   },
