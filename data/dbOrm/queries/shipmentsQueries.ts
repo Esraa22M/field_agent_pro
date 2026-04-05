@@ -7,6 +7,11 @@ type ShipmentSelect = typeof shipments.$inferSelect;
 type ShipmentInsert = typeof shipments.$inferInsert;
 
 export const ShipmentQueries = {
+    async hasData(): Promise<boolean> {
+    const result = await db.select().from(shipments).limit(1);
+    return result.length > 0;
+  },
+
   getActiveShipments: async (): Promise<ShipmentSelect[]> => {
     return await db
       .select()
@@ -28,10 +33,14 @@ export const ShipmentQueries = {
   softDelete: async (orderId: number): Promise<void> => {
     await db
       .update(shipments)
-      .set({ status: 'Completed' })
+      .set({ status: 'Completed' , is_deleted:1})
       .where(eq(shipments.order_id, orderId));
   },
-
+async hardDelete(orderId: number) {
+  await db
+    .delete(shipments)
+    .where(eq(shipments.order_id, orderId));
+},
   getCalendarMarkers: async (): Promise<
     Pick<ShipmentSelect, 'order_id' | 'delivery_date' | 'status'>[]
   > => {
@@ -51,7 +60,7 @@ export const ShipmentQueries = {
       .where(eq(shipments.delivery_date, isoDate));
   },
 
-  getShipmentDetails: async (
+  getTaskById: async (
     orderId: number,
   ): Promise<ShipmentSelect | undefined> => {
     const [result] = await db
@@ -76,7 +85,14 @@ export const ShipmentQueries = {
           longitude: sql`excluded.longitude`,
           notes: sql`excluded.notes`,
           contact_phone: sql`excluded.contact_phone`,
+           is_deleted: sql`excluded.is_deleted`,
         },
       });
   },
+checkTableExists:  async ( tableName: string)=> {
+  const result = await db.get(
+    sql`SELECT name FROM sqlite_master WHERE type='table' AND name=${tableName}`
+  );
+  return !!result;
+}
 };

@@ -12,4 +12,4 @@ export const shipments = sqliteTable('shipments', {
   longitude: real('longitude'),
   notes: text('notes').default(''),
   contact_phone: text('contact_phone').default(''),
-});
+  is_deleted: integer('is_deleted').default(0),});

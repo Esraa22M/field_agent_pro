@@ -24,6 +24,7 @@ export const ShipmentMapper = {
 
       notes: apiItem.notes ?? '',
       contact_phone: apiItem.contact_phone ?? '',
+      is_deleted: apiItem.is_deleted ?? 0
     };
   },
 

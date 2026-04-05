@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "3e84820b-6fb0-4226-9b25-b3fc0b4039af",
+  "id": "6784626f-cd7d-4a4b-9289-08c2866c61e7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "shipments": {
@@ -93,6 +93,14 @@
           "notNull": false,
           "autoincrement": false,
           "default": "''"
+        },
+        "is_deleted": {
+          "name": "is_deleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
         }
       },
       "indexes": {},

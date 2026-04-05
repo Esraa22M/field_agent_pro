@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import AssignmentsStack from './AssignmentsStack';
 import { Schedule, Settings } from '../screens';
-
+import { useTheme } from '../theme/themeContext';
 const Tab = createBottomTabNavigator();
 const IconComponent = MaterialCommunityIcons;
 
@@ -15,13 +15,18 @@ const tabs = [
 ];
 
 export default function MainTabs() {
+  const { theme } = useTheme();
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: '#2196F3',
-        tabBarInactiveTintColor: '#999',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.textSecondary,
+        tabBarStyle: {
+          backgroundColor: theme.colors.card || '#fff',
+          borderTopColor: 'transparent',
+        }
       }}
     >
       {tabs.map(({ name, component, icon }) => (

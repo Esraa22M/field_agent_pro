@@ -16,7 +16,7 @@ export default function AssignmentsStack() {
     <Stack.Navigator
       initialRouteName="AssignmentsMain"
       screenOptions={{
-        headerShown: true, 
+        headerShown: false, 
       }}
     >
       <Stack.Screen

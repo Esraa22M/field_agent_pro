@@ -1,49 +1,74 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { loadShipments } from '../../store/slices/shipmentsSlice';
+import { useTheme } from '../../theme/themeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AssignmentsHeader from '../../components/AssignmentsHeader';
+import AssignmentItem from '../../components/assignmentList/AssignmentItem';
+export default function AssignmentsList({ navigation }: { navigation: NavigationProp<any> }) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { list: shipments, loading, error } = useSelector((state: RootState) => state.shipments);
 
-const data = [
-  { id: '1', title: 'Math Assignment', description: 'Algebra tasks' },
-  { id: '2', title: 'Science Assignment', description: 'Physics tasks' },
-];
+  const { theme } = useTheme();
+  const insets = useSafeAreaInsets();
 
-export default function AssignmentsList({ navigation }) {
+  const styles = createStyles(theme, insets);
+
+  useEffect(() => {
+    dispatch(loadShipments());
+  }, [dispatch]);
+
+  if (loading) return <Text style={styles.loadingText}>Loading...</Text>;
+  if (error) return <Text style={styles.errorText}>{error}</Text>;
+
   return (
     <View style={styles.container}>
+      <AssignmentsHeader title="My Assignments" />
       <FlatList
-        data={data}
-        keyExtractor={item => item.id}
+        data={shipments}
+        keyExtractor={(item) => item.order_id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => navigation.navigate('AssignmentDetails', { item })}
-          >
-            <Text style={styles.title}>{item.title}</Text>
-          </TouchableOpacity>
+          <AssignmentItem item={item}  />
         )}
+        contentContainerStyle={styles.listContent}
       />
     </View>
   );
 }
+const createStyles = (theme: any, insets: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  item: {
-    padding: 16,
-    backgroundColor: '#eee',
-    marginBottom: 10,
-    borderRadius: 8,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
+      paddingLeft: insets.left,
+      paddingRight: insets.right,
+    },
+
+  
+    listContent: {
+      paddingHorizontal: theme.spacing.medium || 16,
+    },
+
+    title: {
+      fontSize: theme.fonts.size.medium || 16,
+      fontWeight: 'bold',
+      color: theme.colors.textPrimary,
+    },
+
+    loadingText: {
+      padding: theme.spacing.medium || 16,
+      fontSize: theme.fonts.size.medium || 16,
+      color: theme.colors.textPrimary,
+    },
+
+    errorText: {
+      padding: theme.spacing.medium || 16,
+      color: theme.colors.error || 'red',
+    },
+  });

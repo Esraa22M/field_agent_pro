@@ -24,4 +24,5 @@ export interface Shipment {
   location_coordinates: LocationCoordinates;
   notes?: string;
   contact_phone?: string;
+  is_deleted: number;
 }

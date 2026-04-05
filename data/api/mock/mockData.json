@@ -10,11 +10,9 @@
           "delivery_address": "452 Willow Creek, Suite 101",
           "delivery_date": "2023-10-24T10:45:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 37.78825,
-            "longitude": -122.4324
-          },
-          "notes": "Gate code: 4492. Leave at front desk."
+          "location_coordinates": { "latitude": 37.78825, "longitude": -122.4324 },
+          "notes": "Gate code: 4492. Leave at front desk.",
+          "is_deleted": false
         },
         {
           "order_id": 2033,
@@ -24,11 +22,9 @@
           "delivery_address": "880 Third Avenue, New York, NY",
           "delivery_date": "2023-10-25T14:00:00.000Z",
           "task_type": "Pickup",
-          "location_coordinates": {
-            "latitude": 40.758,
-            "longitude": -73.9855
-          },
-          "notes": "Fragile content. Handle with care."
+          "location_coordinates": { "latitude": 40.758, "longitude": -73.9855 },
+          "notes": "Fragile content. Handle with care.",
+          "is_deleted": false
         },
         {
           "order_id": 2050,
@@ -39,11 +35,9 @@
           "contact_phone": "1-310-555-0021",
           "delivery_date": "2023-10-24T16:30:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 34.0736,
-            "longitude": -118.4004
-          },
-          "notes": ""
+          "location_coordinates": { "latitude": 34.0736, "longitude": -118.4004 },
+          "notes": "",
+          "is_deleted": false
         },
         {
           "order_id": 2051,
@@ -51,14 +45,11 @@
           "customer_name": "Sarah Connor",
           "client_company": "Urban Delivery Partners",
           "delivery_address": "720 Tech Plaza, Silicon Valley",
-
           "delivery_date": "2023-10-26T09:15:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 37.3382,
-            "longitude": -121.8863
-          },
-          "notes": "Call upon arrival."
+          "location_coordinates": { "latitude": 37.3382, "longitude": -121.8863 },
+          "notes": "Call upon arrival.",
+          "is_deleted": false
         },
         {
           "order_id": 99281,
@@ -66,14 +57,11 @@
           "customer_name": "John Doe",
           "client_company": "Logistics Way Warehouse",
           "delivery_address": "123 Logistics Way, Warehouse 4 • Dock 2B",
-
           "delivery_date": "2023-10-24T10:45:00.000Z",
           "task_type": "Navigation",
-          "location_coordinates": {
-            "latitude": 25.2048,
-            "longitude": 55.2708
-          },
-          "notes": "Specific detail from Screenshot 2. Recipient expects package by noon."
+          "location_coordinates": { "latitude": 25.2048, "longitude": 55.2708 },
+          "notes": "Specific detail from Screenshot 2. Recipient expects package by noon.",
+          "is_deleted": false
         },
         {
           "order_id": 4092,
@@ -81,15 +69,12 @@
           "customer_name": "Warehouse Manager",
           "client_company": "North District Hub",
           "delivery_address": "Warehouse A, North District",
-
           "delivery_date": "2023-10-24T09:00:00.000Z",
           "end_time": "2023-10-24T10:30:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 40.7128,
-            "longitude": -74.006
-          },
-          "notes": "Data from Screenshot 3 (Agenda)"
+          "location_coordinates": { "latitude": 40.7128, "longitude": -74.006 },
+          "notes": "Data from Screenshot 3 (Agenda)",
+          "is_deleted": false
         },
         {
           "order_id": 4093,
@@ -97,15 +82,12 @@
           "customer_name": "Tech Park Reception",
           "client_company": "Client B Corp",
           "delivery_address": "123 Industrial Blvd, Tech Park",
-
           "delivery_date": "2023-10-24T11:00:00.000Z",
           "end_time": "2023-10-24T12:00:00.000Z",
           "task_type": "Pickup",
-          "location_coordinates": {
-            "latitude": 40.7306,
-            "longitude": -73.9352
-          },
-          "notes": "Data from Screenshot 3 (Agenda)"
+          "location_coordinates": { "latitude": 40.7306, "longitude": -73.9352 },
+          "notes": "Data from Screenshot 3 (Agenda)",
+          "is_deleted": false
         },
         {
           "order_id": 9999,
@@ -113,15 +95,12 @@
           "customer_name": "System",
           "client_company": "Personal",
           "delivery_address": "N/A",
-
           "delivery_date": "2023-10-24T13:00:00.000Z",
           "end_time": "2023-10-24T13:30:00.000Z",
           "task_type": "Break",
-          "location_coordinates": {
-            "latitude": 0,
-            "longitude": 0
-          },
-          "notes": "Lunch Break"
+          "location_coordinates": { "latitude": 0, "longitude": 0 },
+          "notes": "Lunch Break",
+          "is_deleted": false
         },
         {
           "order_id": 4095,
@@ -129,15 +108,12 @@
           "customer_name": "HQ Admin",
           "client_company": "Internal Meeting",
           "delivery_address": "HQ - Meeting Room 3",
-
           "delivery_date": "2023-10-24T14:00:00.000Z",
           "end_time": "2023-10-24T16:00:00.000Z",
           "task_type": "Meeting",
-          "location_coordinates": {
-            "latitude": 0,
-            "longitude": 0
-          },
-          "notes": "Route Optimization Review"
+          "location_coordinates": { "latitude": 0, "longitude": 0 },
+          "notes": "Route Optimization Review",
+          "is_deleted": false
         }
       ]
     },
@@ -151,11 +127,9 @@
           "delivery_address": "452 Willow Creek, Suite 101",
           "delivery_date": "2023-10-24T10:45:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 37.78825,
-            "longitude": -122.4324
-          },
-          "notes": "Gate code: 4492. Leave at front desk."
+          "location_coordinates": { "latitude": 37.78825, "longitude": -122.4324 },
+          "notes": "Gate code: 4492. Leave at front desk.",
+          "is_deleted": false
         },
         {
           "order_id": 2033,
@@ -165,11 +139,9 @@
           "delivery_address": "880 Third Avenue, New York, NY",
           "delivery_date": "2023-10-25T14:00:00.000Z",
           "task_type": "Pickup",
-          "location_coordinates": {
-            "latitude": 40.758,
-            "longitude": -73.9855
-          },
-          "notes": "Fragile content. Handle with care."
+          "location_coordinates": { "latitude": 40.758, "longitude": -73.9855 },
+          "notes": "Fragile content. Handle with care.",
+          "is_deleted": false
         },
         {
           "order_id": 2050,
@@ -180,11 +152,9 @@
           "contact_phone": "1-310-555-0021",
           "delivery_date": "2023-10-24T16:30:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 34.0736,
-            "longitude": -118.4004
-          },
-          "notes": ""
+          "location_coordinates": { "latitude": 34.0736, "longitude": -118.4004 },
+          "notes": "",
+          "is_deleted": false
         },
         {
           "order_id": 2051,
@@ -192,14 +162,11 @@
           "customer_name": "Sarah Connor",
           "client_company": "Urban Delivery Partners",
           "delivery_address": "720 Tech Plaza, Silicon Valley",
-
           "delivery_date": "2023-10-26T09:15:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 37.3382,
-            "longitude": -121.8863
-          },
-          "notes": "Call upon arrival."
+          "location_coordinates": { "latitude": 37.3382, "longitude": -121.8863 },
+          "notes": "Call upon arrival.",
+          "is_deleted": false
         },
         {
           "order_id": 99281,
@@ -207,14 +174,11 @@
           "customer_name": "John Doe",
           "client_company": "Logistics Way Warehouse",
           "delivery_address": "123 Logistics Way, Warehouse 4 • Dock 2B",
-
           "delivery_date": "2023-10-24T10:45:00.000Z",
           "task_type": "Navigation",
-          "location_coordinates": {
-            "latitude": 25.2048,
-            "longitude": 55.2708
-          },
-          "notes": "Specific detail from Screenshot 2. Recipient expects package by noon."
+          "location_coordinates": { "latitude": 25.2048, "longitude": 55.2708 },
+          "notes": "Specific detail from Screenshot 2. Recipient expects package by noon.",
+          "is_deleted": false
         },
         {
           "order_id": 4092,
@@ -222,15 +186,12 @@
           "customer_name": "Warehouse Manager",
           "client_company": "North District Hub",
           "delivery_address": "Warehouse A, North District",
-
           "delivery_date": "2023-10-24T09:00:00.000Z",
           "end_time": "2023-10-24T10:30:00.000Z",
           "task_type": "Delivery",
-          "location_coordinates": {
-            "latitude": 40.7128,
-            "longitude": -74.006
-          },
-          "notes": "Data from Screenshot 3 (Agenda)"
+          "location_coordinates": { "latitude": 40.7128, "longitude": -74.006 },
+          "notes": "Data from Screenshot 3 (Agenda)",
+          "is_deleted": false
         },
         {
           "order_id": 4093,
@@ -238,15 +199,12 @@
           "customer_name": "Tech Park Reception",
           "client_company": "Client B Corp",
           "delivery_address": "123 Industrial Blvd, Tech Park",
-
           "delivery_date": "2023-10-24T11:00:00.000Z",
           "end_time": "2023-10-24T12:00:00.000Z",
           "task_type": "Pickup",
-          "location_coordinates": {
-            "latitude": 40.7306,
-            "longitude": -73.9352
-          },
-          "notes": "Data from Screenshot 3 (Agenda)"
+          "location_coordinates": { "latitude": 40.7306, "longitude": -73.9352 },
+          "notes": "Data from Screenshot 3 (Agenda)",
+          "is_deleted": false
         },
         {
           "order_id": 9999,
@@ -254,15 +212,12 @@
           "customer_name": "System",
           "client_company": "Personal",
           "delivery_address": "N/A",
-
           "delivery_date": "2023-10-24T13:00:00.000Z",
           "end_time": "2023-10-24T13:30:00.000Z",
           "task_type": "Break",
-          "location_coordinates": {
-            "latitude": 0,
-            "longitude": 0
-          },
-          "notes": "Lunch Break"
+          "location_coordinates": { "latitude": 0, "longitude": 0 },
+          "notes": "Lunch Break",
+          "is_deleted": false
         },
         {
           "order_id": 4095,
@@ -270,15 +225,12 @@
           "customer_name": "HQ Admin",
           "client_company": "Internal Meeting",
           "delivery_address": "HQ - Meeting Room 3",
-
           "delivery_date": "2023-10-24T14:00:00.000Z",
           "end_time": "2023-10-24T16:00:00.000Z",
           "task_type": "Meeting",
-          "location_coordinates": {
-            "latitude": 0,
-            "longitude": 0
-          },
-          "notes": "Route Optimization Review"
+          "location_coordinates": { "latitude": 0, "longitude": 0 },
+          "notes": "Route Optimization Review",
+          "is_deleted": false
         }
       ]
     }

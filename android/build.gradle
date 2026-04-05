@@ -18,5 +18,22 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        maven {
+            url(new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../android'))
+        }
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+subprojects {
+    tasks.withType(Test).configureEach {
+        failOnNoDiscoveredTests = false
+    }
+}
+
 apply plugin: "com.facebook.react.rootproject"
 apply plugin: "expo-root-project"

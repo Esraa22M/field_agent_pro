@@ -10,5 +10,6 @@ CREATE TABLE `shipments` (
 	`latitude` real,
 	`longitude` real,
 	`notes` text DEFAULT '',
-	`contact_phone` text DEFAULT ''
+	`contact_phone` text DEFAULT '',
+	`is_deleted` integer DEFAULT 0
 );
