@@ -38,6 +38,7 @@ export const ShipmentsRepo = {
     return await ShipmentQueries.getActiveShipments();
   },
 
+  
   getTasksByDate: async (date: string | Date) => {
     const formattedDate = toSQLiteDate(date);
 
@@ -56,4 +57,5 @@ export const ShipmentsRepo = {
   markAsDeleted: async (orderId: number) => {
     return await ShipmentQueries.updateStatus(orderId, 'Completed');
   },
+  
 };

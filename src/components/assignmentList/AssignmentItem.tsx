@@ -12,8 +12,8 @@ interface AssignmentItemProps {
 }
 
 type AssignmentItemNavigationProp = StackNavigationProp<
-  AssignmentsStackParamList,
-  'AssignmentsMain'
+    AssignmentsStackParamList,
+    'AssignmentsMain'
 >;
 export default function AssignmentItem({ item }: AssignmentItemProps) {
     const { theme } = useTheme();
@@ -56,7 +56,7 @@ export default function AssignmentItem({ item }: AssignmentItemProps) {
     );
 }
 
-const createStyles = (theme: any, status: string|null) =>
+const createStyles = (theme: any, status: string | null) =>
     StyleSheet.create({
         item: {
             padding: theme.spacing.medium || 16,
@@ -71,8 +71,9 @@ const createStyles = (theme: any, status: string|null) =>
             shadowRadius: 2,
             elevation: 1,
         },
-        mainContent: { flex: 1,           
- },
+        mainContent: {
+            flex: 1,
+        },
         headerRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -85,10 +86,12 @@ const createStyles = (theme: any, status: string|null) =>
             color: theme.colors.textPrimary || '#FFFFFF',
         },
         badge: {
-            backgroundColor:  withOpacity(theme.colors[status || 'Active'] || '#34C759', 0.4) || '#E5F9E7',
-            paddingVertical: theme.spacing.xs || 4,
+            backgroundColor: withOpacity(
+                theme.colors[status || 'Active'] || '#34C759',
+                0.15
+            ), paddingVertical: theme.spacing.xs || 4,
             paddingHorizontal: theme.spacing.small || 8,
-            borderRadius: theme.spacing.borderRadius.medium || 6,
+            borderRadius: theme.spacing.borderRadius.large || 6,
             marginRight: theme.spacing.medium || 16,
         },
         badgeText: {

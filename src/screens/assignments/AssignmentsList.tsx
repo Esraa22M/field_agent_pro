@@ -3,14 +3,12 @@ import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-nativ
 import { NavigationProp } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-// استيراد الـ Selector الجديد من الـ Slice
 import { loadShipments, selectActiveShipments } from '../../store/slices/shipmentsSlice';
 import { useTheme } from '../../theme/themeContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AssignmentsHeader from '../../components/AssignmentsHeader';
 import { useOrientation } from '../../hooks/useOrientation';
 import SwipeableAssignmentItem from '../../components/assignmentList/swipeableAssignmentItem';
-
 export default function AssignmentsList() {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -53,6 +51,9 @@ export default function AssignmentsList() {
             <SwipeableAssignmentItem item={item} />
           </View>
         )}
+         ListEmptyComponent={
+                    <Text style={styles.emptyText}>No tasks for this day</Text>
+                  }
         contentContainerStyle={styles.listContent}
       />
     </View>
@@ -90,4 +91,10 @@ const createStyles = (theme: any, insets: any) =>
       color: theme.colors.error || 'red',
       textAlign: 'center',
     },
+     emptyText: {
+    textAlign: 'center',
+    color: '#8E8E93',
+    marginTop: 40,
+    fontSize: 14,
+  },
   });

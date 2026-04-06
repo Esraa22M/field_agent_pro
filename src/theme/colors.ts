@@ -31,9 +31,9 @@ export const colors = {
   },
   status: {
     Active: '#3FB950',   // Success
-    Pending: '#D29922',  // Warning
+    Break: '#D29922',  // Warning
     Completed: '#2F81F7',// Primary
-    Break: '#6a6b6d',    // TextSecondary
+    Pending: '#6a6b6d',    // TextSecondary
   },
 };
 

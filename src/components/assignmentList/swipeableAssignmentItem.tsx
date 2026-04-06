@@ -15,7 +15,11 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { softDeleteShipment } from '../../store/slices/shipmentsSlice';
 import { useTheme } from '../../theme/themeContext';
-export default function SwipeableAssignmentItem({ item }: any) {
+import { Shipment } from '../../types/flatShipmentsTyes';
+interface AssignmentItemProps {
+    item: Shipment;
+}
+export default function SwipeableAssignmentItem({ item }: AssignmentItemProps) {
   const translateX = useSharedValue(0);
   const maxSwipe = -100;
 

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { MainTabs } from './src/navigation';
 import { store } from './src/store';
@@ -10,46 +11,45 @@ import migrations from './drizzle/migrations';
 import { ShipmentsRepo } from './data/dbOrm/repositories/shipmentsRepo';
 import { db } from './data/dbOrm/client';
 import { ThemeProvider } from './src/theme/themeContext';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 export default function App() {
   const { success: migrationsFinished, error: migrationError } = useMigrations(db, migrations);
-
   const [syncing, setSyncing] = useState(true);
   const [message, setMessage] = useState('');
 
-useEffect(() => {
-  let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  if (migrationsFinished) {
-    const syncData = async () => {
-      try {
-await new Promise(resolve => setTimeout(() => resolve(null), 500));
-        
-        const result = await ShipmentsRepo.syncFromRemote();
-        
-        if (isMounted) {
-          if (result.success) {
-            setMessage('Sync completed successfully!');
-          } else {
-            setMessage('Sync failed: ' + result.error);
+    if (migrationsFinished) {
+      const syncData = async () => {
+        try {
+          await new Promise<void>((resolve) => setTimeout(resolve, 800));
+          
+          const result = await ShipmentsRepo.syncFromRemote();
+          
+          if (isMounted) {
+            if (result.success) {
+              setMessage('Sync completed successfully!');
+            } else {
+              setMessage('Sync failed: ' + result.error);
+            }
           }
+        } catch (err) {
+          console.error("Sync Error:", err);
+        } finally {
+          if (isMounted) setSyncing(false);
         }
-      } catch (err) {
-        console.error("Sync Error:", err);
-      } finally {
-        if (isMounted) setSyncing(false);
-      }
-    };
+      };
 
-    syncData();
-  }
+      syncData();
+    }
 
-  return () => { isMounted = false; };
-}, [migrationsFinished]);
+    return () => { isMounted = false; };
+  }, [migrationsFinished]);
 
   if (migrationError) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', }}>
+      <View style={styles.center}>
         <Text style={{ color: 'red' }}>Migration Error: {migrationError.message}</Text>
       </View>
     );
@@ -57,10 +57,10 @@ await new Promise(resolve => setTimeout(() => resolve(null), 500));
 
   if (!migrationsFinished || syncing) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.center}>
         <ActivityIndicator size="large" color="#0000ff" />
-        <Text style={{ marginTop: 10 }}>
-          {!migrationsFinished ? "Setting up database..." : "Syncing data..."}
+        <Text style={styles.loadingText}>
+          {!migrationsFinished ? "Setting up database..." : "Syncing data, please wait..."}
         </Text>
       </View>
     );
@@ -72,14 +72,33 @@ await new Promise(resolve => setTimeout(() => resolve(null), 500));
         <ThemeProvider>
           <NavigationContainer>
             <MainTabs />
-            {message.length > 0 && (
-              <View style={{ position: 'absolute', bottom: 100, left: 20, right: 20, padding: 15, backgroundColor: '#333', borderRadius: 8 }}>
-                <Text style={{ color: 'white', textAlign: 'center' }}>{message}</Text>
-              </View>
-            )}
+        
           </NavigationContainer>
-      </ThemeProvider> 
+        </ThemeProvider>
       </SafeAreaProvider>
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },  
+  loadingText: {
+    marginTop: 15,
+    fontSize: 16,
+    color: '#333',
+  },
+  toast: {
+    position: 'absolute',
+    bottom: 50,
+    left: 20,
+    right: 20,
+    padding: 15,
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    borderRadius: 8,
+  }
+});
