@@ -1,97 +1,144 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📱 Field Agent Pro
 
-# Getting Started
+A modern **React Native mobile application** built with an **Offline-First architecture**, ensuring a seamless user experience even with unstable or no internet connectivity.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🚀 Features
 
-## Step 1: Start Metro
+* 📡 Offline-First data handling
+* 💾 Local database using SQLite + Drizzle ORM
+* 🔄 Background sync using a Native Module (Android WorkManager)
+* 🎨 Dark / Light theme support
+* 🌍 Multi-language support (English / Arabic + RTL)
+* 🧪 Unit testing with Jest
+* 🖥️ Mock API server for development
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🛠️ Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+* React Native
+* Expo SQLite
+* Drizzle ORM
+* Redux Toolkit
+* i18next (Localization)
+* Android Native Modules (Java + WorkManager)
+* Jest (Testing)
 
-```sh
-# Using npm
-npm start
+## 📦 Getting Started
 
-# OR using Yarn
-yarn start
-```
+### 1. Clone the Repository
 
-## Step 2: Build and run your app
+```bash
+git clone https://github.com/Esraa22M/field_agent_pro.git
+cd field_agent_pro
+##  Install Dependencies
+npm install
+🖥️ Running the Mock Server
+yarn mock
+🖥️ Running the App
+npx react-native run-android
+Make sure an emulator is running or a physical device is connected.
+Running Tests
+npx jest src/unitTest/shipmentsSlice.test.ts --env=node
+Architecture Overview
+The app follows a clean layered architecture
+UI Layer (Screens / Components)
+        ↓
+State Management (Redux)
+        ↓
+Repository Layer
+        ↓
+Local DB (Drizzle + SQLite)
+        ↓
+Sync Layer (Native Module)
+        ↓
+Mock API Server
+🗄️ Data Layer
+Technologies Used
+Expo SQLite (Local storage)
+Drizzle ORM (Database management)
+Mock API Server
+Structure
+data/
+ ├── api/mock/
+ ├── dbOrm/
+ │    ├── schema/
+ │    ├── queries/
+ │    ├── repositories/
+ │    └── mappers/
+ └── drizzle/
+ Repositories → Bridge between UI and data sources
+Queries → Handle database operations
+Mappers → Transform API ↔ DB models
+Mock API → Simulates backend responses
+📡 Offline-First Strategy
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+The app is designed to work offline by default.
 
-### Android
+Flow
+Data is always read from local database
+User actions are saved locally first
+Changes are queued for sync
+Background sync sends updates to API
+Server data is pulled and merged locally
+Benefits
+Works without internet
+Fast UI response
+Reliable data persistence
+🧩 Native Module (Background Sync)
 
-```sh
-# Using npm
-npm run android
+A custom Android Native Module is implemented for background synchronization.
 
-# OR using Yarn
-yarn android
-```
+Key Components
+SyncModule.java
+SyncPackage.java
+BackgroundSyncModule.java
+BackgroundSyncWorker.java
+How It Works
+Uses Android WorkManager to run tasks in the background
+Syncs data:
+Local SQLite → API
+API → Local SQLite
+JavaScript Bridge
+import { NativeModules } from 'react-native';
+const { SyncModule } = NativeModules;
+SyncModule.startBackgroundSync();
+🎨 UI Architecture
+Structure
+src/
+ ├── screens/
+ ├── components/
+ └── navigation/
+Navigation
+Stack Navigator → Screen transitions
+Bottom Tabs → Main app sections
+🌙 Theming
+Implemented using Theme Context
+Supports Light Mode and Dark Mode
+const { theme, isDark, toggleTheme } = useTheme();
+🌍 Localization
+Powered by i18next
+Supports English 🇺🇸 and Arabic 🇸🇦 (RTL)
+t('settings')
+Language Switching
+i18n.changeLanguage('en');
+i18n.changeLanguage('ar');
+🔄 Background Sync UI
+Available in Settings Screen
+Shows:
+Sync status (Active)
+Last sync time
+Integrated with Native Module
+💡 Design Decisions
+Offline-first ensures reliability and fast UI
+Native module provides robust background execution
+Clean architecture for scalability
+Mock server simplifies development and testing
+📌 Future Improvements
+Real backend integration
+Advanced conflict resolution (beyond LWW)
+Push-based sync using WebSockets
+iOS background sync support
+👩‍💻 Author
 
-### iOS
+Esraa Mohamed
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
