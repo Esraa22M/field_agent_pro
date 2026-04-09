@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import CustomText from '../customText';
 import { Building2, User, ChevronRight } from 'lucide-react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -34,20 +35,20 @@ export default function AssignmentItem({ item }: AssignmentItemProps) {
         >
             <View style={styles.mainContent}>
                 <View style={styles.headerRow}>
-                    <Text style={styles.orderId}>Task #{item?.order_id}</Text>
+                    <CustomText style={styles.orderId}>Task #{item?.order_id}</CustomText>
                     <View style={styles.badge}>
-                        <Text style={styles.badgeText}>{item?.status || 'Active'}</Text>
+                        <CustomText style={styles.badgeText}>{item?.status || 'Active'}</CustomText>
                     </View>
                 </View>
 
                 <View style={styles.infoRow}>
                     <Building2 size={16} color={secondaryColor} strokeWidth={2} />
-                    <Text style={styles.infoText}>{item?.client_company}</Text>
+                    <CustomText style={styles.infoText}>{item?.client_company}</CustomText>
                 </View>
 
                 <View style={styles.infoRow}>
                     <User size={16} color={secondaryColor} strokeWidth={2} />
-                    <Text style={styles.infoText}>Agent: {item?.customer_name}</Text>
+                    <CustomText style={styles.infoText}>Agent: {item?.customer_name}</CustomText>
                 </View>
             </View>
 

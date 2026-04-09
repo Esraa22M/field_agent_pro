@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
+import CustomText from './customText';
 import { useTheme } from '../theme/themeContext';
 
 interface Props {
@@ -11,7 +12,7 @@ export default function HeaderTitle({ title, style }: Props) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  return <Text style={[styles.title, style]}>{title}</Text>;
+  return <CustomText style={[styles.title, style]}>{title}</CustomText>;
 }
 
 const createStyles = (theme: any) =>

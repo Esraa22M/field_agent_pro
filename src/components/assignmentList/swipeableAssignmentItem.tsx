@@ -1,77 +1,83 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, I18nManager } from 'react-native';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
   withSpring, 
-  runOnJS,
-  interpolate,
-  Extrapolate
+  runOnJS, 
+  interpolate, 
+  Extrapolate 
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { Trash2 } from 'lucide-react-native'; 
+import { Trash2 } from 'lucide-react-native';
 import AssignmentItem from './AssignmentItem';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { softDeleteShipment } from '../../store/slices/shipmentsSlice';
 import { useTheme } from '../../theme/themeContext';
 import { Shipment } from '../../types/flatShipmentsTyes';
+
 interface AssignmentItemProps {
-    item: Shipment;
+  item: Shipment;
 }
+
+const isRTL = I18nManager.isRTL;
+
 export default function SwipeableAssignmentItem({ item }: AssignmentItemProps) {
   const translateX = useSharedValue(0);
-  const maxSwipe = -100;
-
   const dispatch = useDispatch<AppDispatch>();
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const handleDelete = (id: number) => {
-    dispatch(softDeleteShipment(id));
+  const SWIPE_LIMIT = isRTL ? 80 : -80;
+
+  const handleDelete = () => {
+    dispatch(softDeleteShipment(item.order_id));
   };
 
   const panGesture = Gesture.Pan()
-    .activeOffsetX([-10, 10]) 
-    .failOffsetY([-5, 5])      
+    .activeOffsetX(isRTL ? [10, 20] : [-20, -10]) 
     .onUpdate((event) => {
-      "use worklet"; 
-      translateX.value = Math.min(0, Math.max(event.translationX, maxSwipe - 20));
+      "use worklet";
+      if (isRTL) {
+        translateX.value = Math.max(0, event.translationX);
+      } else {
+        translateX.value = Math.min(0, event.translationX);
+      }
     })
     .onEnd(() => {
-      "use worklet"; 
-      if (translateX.value <= maxSwipe / 1.5) {
-        runOnJS(handleDelete)(item.order_id);
+      "use worklet";
+      const absTranslateX = Math.abs(translateX.value);
+      if (absTranslateX > 60) {
+        runOnJS(handleDelete)();
       }
       translateX.value = withSpring(0);
     });
 
-  const animatedStyle = useAnimatedStyle(() => {
-    "use worklet"; 
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+  }));
+
+  const backgroundStyle = useAnimatedStyle(() => {
+    "use worklet";
+    const input = isRTL ? [0, 80] : [-80, 0];
+    const output = isRTL ? [0, 1] : [1, 0];
+
     return {
-      transform: [{ translateX: translateX.value }],
+      opacity: interpolate(translateX.value, input, output, Extrapolate.CLAMP),
     };
   });
 
-  const backgroundStyle = useAnimatedStyle(() => {
-    "use worklet"; 
-    const opacity = interpolate(
-      translateX.value,
-      [maxSwipe, 0],
-      [1, 0], 
-      Extrapolate.CLAMP
-    );
-    return { opacity };
-  });
-
   const iconAnimatedStyle = useAnimatedStyle(() => {
-    "use worklet"; 
-    const scale = interpolate(translateX.value, [maxSwipe, 0], [1, 0.5], Extrapolate.CLAMP);
-    const opacity = interpolate(translateX.value, [maxSwipe, -20], [1, 0], Extrapolate.CLAMP);
-    
+    "use worklet";
+    const input = isRTL ? [0, 80] : [-80, 0];
+    const scaleOutput = isRTL ? [0, 1] : [1, 0];
+
     return {
-      transform: [{ scale }],
-      opacity,
+      transform: [{ 
+        scale: interpolate(translateX.value, input, scaleOutput, Extrapolate.CLAMP) 
+      }],
+      opacity: interpolate(translateX.value, input, scaleOutput, Extrapolate.CLAMP),
     };
   });
 
@@ -81,10 +87,10 @@ export default function SwipeableAssignmentItem({ item }: AssignmentItemProps) {
         <Animated.View style={[styles.deleteBackground, backgroundStyle]}>
           <Animated.View style={[styles.iconContainer, iconAnimatedStyle]}>
             <Trash2 color="white" size={24} strokeWidth={2.5} />
-            <Text style={styles.deleteText}>DELETE</Text>
+            <Text style={styles.deleteText}>{isRTL ? "حذف" : "DELETE"}</Text>
           </Animated.View>
         </Animated.View>
-        
+
         <Animated.View style={animatedStyle}>
           <AssignmentItem item={item} />
         </Animated.View>
@@ -93,32 +99,30 @@ export default function SwipeableAssignmentItem({ item }: AssignmentItemProps) {
   );
 }
 
-const createStyles = (theme: any) =>
-  StyleSheet.create({
-    container: {
-      position: 'relative',
-      backgroundColor: 'transparent',
-      marginBottom: theme.spacing.cardGap || 12, 
-    },
-    deleteBackground: {
-      ...StyleSheet.absoluteFillObject, 
-      borderRadius: theme.spacing.borderRadius.large || 12,
-      backgroundColor: theme.colors.error || '#FF3B30',
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      paddingRight: theme.spacing.large || 25, 
-      zIndex: -1      
-    },
-    iconContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    deleteText: {
-      color: 'white',
-      fontSize: theme.fonts.size.small || 14,
-      fontWeight: '900',
-      marginTop: theme.spacing.xs || 4,
-      letterSpacing: 0.5,
-    },
-  });
+const createStyles = (theme: any) => StyleSheet.create({
+  container: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+    marginBottom: theme.spacing?.cardGap || 12,
+  },
+  deleteBackground: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: theme.spacing?.borderRadius?.large || 12,
+    backgroundColor: theme.colors?.error || '#FF3B30',
+    flexDirection: 'row',
+    
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingHorizontal: 25,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteText: {
+    color: 'white',
+    fontSize: 10,
+    fontWeight: '900',
+    marginTop: 2,
+  },
+});

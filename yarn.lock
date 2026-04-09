@@ -3240,6 +3240,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-async-storage/async-storage@npm:2.1.1":
+  version: 2.1.1
+  resolution: "@react-native-async-storage/async-storage@npm:2.1.1"
+  dependencies:
+    merge-options: ^3.0.4
+  peerDependencies:
+    react-native: ^0.0.0-0 || >=0.65 <1.0
+  checksum: 51f3c89ddc32afee7969af61621a989c766504da6d8310b9ab2fe6c807f3c3c9d7f409ad85036b8f4c433fed4689f57380d603755491825c28b75be34b45d58c
+  languageName: node
+  linkType: hard
+
 "@react-native-community/cli-clean@npm:20.0.0":
   version: 20.0.0
   resolution: "@react-native-community/cli-clean@npm:20.0.0"
@@ -7710,6 +7721,7 @@ __metadata:
     "@babel/runtime": ^7.25.0
     "@expo/vector-icons": ^15.1.1
     "@gorhom/bottom-sheet": ^5.2.8
+    "@react-native-async-storage/async-storage": 2.1.1
     "@react-native-community/cli": 20.0.0
     "@react-native-community/cli-platform-android": 20.0.0
     "@react-native-community/cli-platform-ios": 20.0.0
@@ -7747,6 +7759,7 @@ __metadata:
     react-native-gesture-handler: ^2.30.1
     react-native-localize: ^3.7.0
     react-native-reanimated: ^4.3.0
+    react-native-restart: ^0.0.27
     react-native-safe-area-context: ^5.7.0
     react-native-screens: ^4.24.0
     react-native-svg: ^15.15.4
@@ -9017,6 +9030,13 @@ __metadata:
   version: 3.0.3
   resolution: "is-path-inside@npm:3.0.3"
   checksum: abd50f06186a052b349c15e55b182326f1936c89a78bf6c8f2b707412517c097ce04bc49a0ca221787bc44e1049f51f09a2ffb63d22899051988d3a618ba13e9
+  languageName: node
+  linkType: hard
+
+"is-plain-obj@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "is-plain-obj@npm:2.1.0"
+  checksum: cec9100678b0a9fe0248a81743041ed990c2d4c99f893d935545cfbc42876cbe86d207f3b895700c690ad2fa520e568c44afc1605044b535a7820c1d40e38daa
   languageName: node
   linkType: hard
 
@@ -10476,6 +10496,15 @@ __metadata:
   version: 1.0.3
   resolution: "merge-descriptors@npm:1.0.3"
   checksum: 52117adbe0313d5defa771c9993fe081e2d2df9b840597e966aadafde04ae8d0e3da46bac7ca4efc37d4d2b839436582659cd49c6a43eacb3fe3050896a105d1
+  languageName: node
+  linkType: hard
+
+"merge-options@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "merge-options@npm:3.0.4"
+  dependencies:
+    is-plain-obj: ^2.1.0
+  checksum: d86ddb3dd6e85d558dbf25dc944f3527b6bacb944db3fdda6e84a3f59c4e4b85231095f58b835758b9a57708342dee0f8de0dffa352974a48221487fe9f4584f
   languageName: node
   linkType: hard
 
@@ -12347,6 +12376,16 @@ __metadata:
     react-native: 0.81 - 0.85
     react-native-worklets: 0.8.x
   checksum: 444925347ff9c9b5dd882133e89aa93e36db62a2b15567e8fc29982e872e5260117c67866e5dbc9e6584b816f9a48d177d5be3dd5ca564c56e6d939b1fbbb180
+  languageName: node
+  linkType: hard
+
+"react-native-restart@npm:^0.0.27":
+  version: 0.0.27
+  resolution: "react-native-restart@npm:0.0.27"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 49cfaa954f12c37c6e34988cb47bf0626f4a2cd68ecc15be3d8d6acc7a5ca3032729545ddb66b6d3a5c30dfe626e46010e3e2148e709487354907997fde64255
   languageName: node
   linkType: hard
 

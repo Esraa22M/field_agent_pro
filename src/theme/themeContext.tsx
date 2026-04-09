@@ -1,40 +1,45 @@
 import React, { createContext, useState, useEffect, useMemo, useContext } from 'react';
-import { Appearance } from 'react-native';
-import { fonts, spacing, colors } from './index'; 
-const initialState = {
-  theme: { colors: {...colors.dark, ...colors.status}, fonts, spacing },
-  toggleTheme: () => {},
+import { Appearance, useColorScheme } from 'react-native';
+import { fonts, spacing, colors } from './index';
+
+type ThemeType = {
+  colors: typeof colors.dark & typeof colors.status;
+  fonts: typeof fonts;
+  spacing: typeof spacing;
 };
 
-export const ThemeContext = createContext(initialState);
+interface ThemeContextInterface {
+  theme: ThemeType;
+  isDark: boolean;
+  toggleTheme: () => void;
+}
+
+export const ThemeContext = createContext<ThemeContextInterface | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const colorScheme = Appearance.getColorScheme();
+  const systemColorScheme = useColorScheme();
+  
+  const [isDark, setIsDark] = useState(systemColorScheme === 'dark');
 
-  const [isDark, setIsDark] = useState(colorScheme === 'dark');
-
-  const theme = useMemo(() => ({
-    colors: isDark ? {...colors.dark, ...colors.status} : {...colors.light, ...colors.status},
-    fonts,
-    spacing,
-  }), [isDark]);
+  useEffect(() => {
+    setIsDark(systemColorScheme === 'dark');
+  }, [systemColorScheme]);
 
   const toggleTheme = () => {
     setIsDark(prev => !prev);
   };
 
-  useEffect(() => {
-    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-      setIsDark(colorScheme === 'dark');
-    });
-
-    return () => subscription.remove();
-  }, []);
+  const theme = useMemo(() => ({
+    colors: isDark ? { ...colors.dark, ...colors.status } : { ...colors.light, ...colors.status },
+    fonts,
+    spacing,
+  }), [isDark]);
 
   const contextValue = useMemo(() => ({
     theme,
+    isDark,
     toggleTheme,
-  }), [theme]);
+  }), [theme, isDark]);
 
   return (
     <ThemeContext.Provider value={contextValue}>

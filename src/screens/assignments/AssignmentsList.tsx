@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { loadShipments, selectActiveShipments } from '../../store/slices/shipmentsSlice';

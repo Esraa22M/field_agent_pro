@@ -44,7 +44,7 @@ export const softDeleteShipment = createAsyncThunk<
   { rejectValue: string }
 >(
   'shipments/softDelete',
-  async (orderId, { rejectWithValue }) => {
+  async (orderId: number, { rejectWithValue }) => {
     try {
       await ShipmentsRepo.softDeleteRow(orderId);
       return orderId;
