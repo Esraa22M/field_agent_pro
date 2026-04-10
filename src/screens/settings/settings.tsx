@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Switch,
   ScrollView,
+  I18nManager,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, Moon, Globe, RefreshCw } from 'lucide-react-native';
@@ -13,7 +14,8 @@ import { useTheme } from '../../theme/themeContext';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import { useNavigation } from '@react-navigation/native';
-
+import RNRestart from 'react-native-restart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SettingsScreen = () => {
   const { t } = useTranslation();
   const { theme, isDark, toggleTheme } = useTheme();
@@ -30,6 +32,20 @@ const SettingsScreen = () => {
       navigation.navigate('Assignments' as never);
     }
   };
+const changeLanguageAndRestart = async (lang: 'en' | 'ar') => {
+  const isArabic = lang === 'ar';
+
+  await AsyncStorage.setItem('appLang', lang);
+  await i18n.changeLanguage(lang);
+
+  if (I18nManager.isRTL !== isArabic) {
+    I18nManager.allowRTL(isArabic);
+    I18nManager.forceRTL(isArabic);
+
+    RNRestart.Restart(); 
+  }
+};
+
 
   const { colors } = theme;
 
@@ -91,7 +107,7 @@ const SettingsScreen = () => {
 
             <View style={[styles.toggleWrapper, { backgroundColor: colors.background }]}>
               <TouchableOpacity
-                onPress={() => i18n.changeLanguage('en')}
+                onPress={() => changeLanguageAndRestart('en')}
                 style={[
                   styles.toggleBtn,
                   i18n.language === 'en' && (isDark ? styles.activeToggleDark : styles.activeToggleLight)
@@ -105,7 +121,7 @@ const SettingsScreen = () => {
                 </CustomText>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => i18n.changeLanguage('ar')}
+                onPress={() => changeLanguageAndRestart('ar')}
                 style={[
                   styles.toggleBtn,
                   i18n.language === 'ar' && (isDark ? styles.activeToggleDark : styles.activeToggleLight)
@@ -130,17 +146,17 @@ const SettingsScreen = () => {
         <View style={[styles.card, styles.systemCard, { backgroundColor: colors.card }]}>
           <View style={styles.syncHeader}>
             <View style={styles.leftSide}>
-              <View style={[styles.iconBox, { backgroundColor: colors.successBg }]}>
-                <RefreshCw size={18} color={colors.success} />
+              <View style={[styles.iconBox, { backgroundColor: colors.successBg || '#DCFCE7' }]}>
+                <RefreshCw size={18} color={colors.success || '#15803D'} />
               </View>
               <CustomText style={[styles.rowLabel, { color: colors.textPrimary }]}>
                 {t('background_sync')}
               </CustomText>
             </View>
             {isSyncEnabled && (
-              <View style={styles.statusBadge}>
-                <View style={[styles.dot, { backgroundColor: colors.success }]} />
-                <CustomText style={[styles.statusText, { color: colors.success }]}>
+              <View style={[styles.statusBadge, { backgroundColor: colors.successBg || '#DCFCE7' }]}>
+                <View style={[styles.dot, { backgroundColor: colors.success || '#15803D' }]} />
+                <CustomText style={[styles.statusText, { color: colors.success || '#15803D' }]}>
                   {t('active')}
                 </CustomText>
               </View>
@@ -277,6 +293,9 @@ const styles = StyleSheet.create({
   statusBadge: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
   dot: {
     width: 6,
@@ -285,35 +304,34 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   statusText: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '600',
   },
   syncMeta: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 6,
-    paddingLeft: 44,
+    marginTop: 12,
+    marginLeft: 44, 
   },
   syncDesc: {
-    flex: 1,
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 4,
   },
   lastSync: {
-    fontSize: 11,
-    marginLeft: 10,
+    fontSize: 12,
+    fontWeight: '500',
   },
   footer: {
-    marginTop: 40,
     alignItems: 'center',
-    paddingBottom: 40,
+    marginTop: 40,
+    marginBottom: 20,
   },
   footerText: {
-    fontSize: 13,
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
   },
   footerSubText: {
-    fontSize: 11,
-    marginTop: 4,
+    fontSize: 12,
   },
 });
 

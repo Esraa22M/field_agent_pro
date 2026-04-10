@@ -46,7 +46,7 @@ export default function App() {
     if (migrationsFinished) {
       const syncData = async () => {
         try {
-          await new Promise((resolve) => setTimeout(resolve, 800));
+          await new Promise((resolve:any) => setTimeout(resolve, 800));
 
           const result = await ShipmentsRepo.syncFromRemote();
 
