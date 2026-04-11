@@ -141,7 +141,6 @@ iOS background sync support
 [![Watch the video](https://youtube.com)](https://youtu.be/KkusJoPSVAs)
 
 
- https://youtu.be/KkusJoPSVAs
 👩‍💻 Author
 
 Esraa Mohamed
