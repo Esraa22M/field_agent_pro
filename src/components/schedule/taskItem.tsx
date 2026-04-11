@@ -47,7 +47,7 @@ export default function AssignmentItem({ item }: AssignmentItemProps) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.iconBtn}>
-          <Phone size={16} color={theme.colors.textPrimary} />
+          <Phone size={16} color={theme.colors.textSecondary} />
         </TouchableOpacity>
       </View>
 
