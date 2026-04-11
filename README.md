@@ -137,6 +137,11 @@ Real backend integration
 Advanced conflict resolution (beyond LWW)
 Push-based sync using WebSockets
 iOS background sync support
+
+[![Watch the video](https://youtube.com)](https://youtu.be/KkusJoPSVAs)
+
+
+ https://youtu.be/KkusJoPSVAs
 👩‍💻 Author
 
 Esraa Mohamed
