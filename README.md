@@ -138,7 +138,7 @@ Advanced conflict resolution (beyond LWW)
 Push-based sync using WebSockets
 iOS background sync support
 
-[![Watch the video](https://youtube.com)](https://youtu.be/KkusJoPSVAs)
+- Watch the demo of the MealNavigator App here: [MealNavigator App Demo](https://youtu.be/KkusJoPSVAs)
 
 
 👩‍💻 Author
